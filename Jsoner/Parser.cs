@@ -108,8 +108,8 @@
         static IEnumerable<Token> Parse(string json)
         {
             var builder = new StringBuilder();
-            bool inString = false;
-            var escape = true;
+            var inString = false;
+            var escape = false;
             for (var i = 0; i < json.Length; i++)
             {
                 var c = json[i];
