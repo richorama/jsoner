@@ -115,6 +115,24 @@
             Assert.AreEqual(12.65, obj);
         }
 
+        [TestMethod]
+        public void TestWithEmptyObject()
+        {
+            dynamic obj = Parser.ParseJson(@"{}");
+
+            Assert.IsNotNull(obj);
+            Assert.IsNotNull(obj as IDictionary<string, object>);
+        }
+
+        [TestMethod]
+        public void TestWithEmptyArray()
+        {
+            dynamic obj = Parser.ParseJson(@"[]");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(0, obj.Count);
+        }
+
 
         [TestMethod]
         public void TestExampleJsonFile()
