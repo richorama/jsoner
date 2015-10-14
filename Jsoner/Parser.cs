@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Jsoner
+﻿namespace Jsoner
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Dynamic;
+    using System.Text;
+
     public static class Parser
     {
         public enum TokenType
@@ -27,15 +25,13 @@ namespace Jsoner
             public string Value { get; set; }
         }
 
-        // special characters
-
         public static object ParseJson(string json)
         {
-            var stack = new Stack<Token>(Parse(json).Reverse());
+            var stack = new Queue<Token>(Parse(json));
             return GetTheNextThing(stack);
         }
 
-        static object GetTheNextThing(Stack<Token> stack)
+        static object GetTheNextThing(Queue<Token> stack)
         {
             var nextObj = stack.Peek();
             switch (nextObj.Type)
@@ -43,7 +39,7 @@ namespace Jsoner
                 case TokenType.StartObj:
                     return ParseObject(stack);
                 case TokenType.String:
-                    return stack.Pop().Value;
+                    return stack.Dequeue().Value;
                 case TokenType.StartArray:
                     return ParseArray(stack);
                 case TokenType.Value:
@@ -57,22 +53,22 @@ namespace Jsoner
         }
 
 
-        static IDictionary<string, object> ParseObject(Stack<Token> stack)
+        static IDictionary<string, object> ParseObject(Queue<Token> stack)
         {
-            var first = stack.Pop();
+            var first = stack.Dequeue();
             if (first.Type != TokenType.StartObj) throw new FormatException("expected {");
 
             var thisObject = new ExpandoObject() as IDictionary<string, object>;
 
             while (stack.Count > 0)
             {
-                var nextToken = stack.Pop();
+                var nextToken = stack.Dequeue();
                 if (nextToken.Type == TokenType.EndObj) break;
                 if (nextToken.Type == TokenType.Separator) continue;
                 if (nextToken.Type == TokenType.String)
                 {
                     var propertyName = nextToken.Value;
-                    if (stack.Pop().Type != TokenType.Assignment) throw new FormatException("expected ':'");
+                    if (stack.Dequeue().Type != TokenType.Assignment) throw new FormatException("expected ':'");
                     thisObject.Add(propertyName, GetTheNextThing(stack));
                 }
             }
@@ -82,9 +78,9 @@ namespace Jsoner
 
  
 
-        static IList<object> ParseArray(Stack<Token> stack)
+        static IList<object> ParseArray(Queue<Token> stack)
         {
-            var first = stack.Pop();
+            var first = stack.Dequeue();
             if (first.Type != TokenType.StartArray) throw new FormatException("expected [");
 
             var thisArray = new List<object>();
@@ -94,12 +90,12 @@ namespace Jsoner
                 var nextToken = stack.Peek();
                 if (nextToken.Type == TokenType.EndArray)
                 {
-                    stack.Pop();
+                    stack.Dequeue();
                     break;
                 }
                 if (nextToken.Type == TokenType.Separator)
                 {
-                    stack.Pop();
+                    stack.Dequeue();
                     continue;
                 }
                 thisArray.Add(GetTheNextThing(stack));

@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Collections.Generic;
-
-namespace Jsoner.Tests
+﻿namespace Jsoner.Tests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Collections.Generic;
+
     [TestClass]
     public class BasicTests
     {
