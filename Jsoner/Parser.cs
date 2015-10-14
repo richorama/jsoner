@@ -161,6 +161,9 @@
                 }
 
             }
+
+            // JSON could just be a single 'true' for example
+            if (builder.Length > 0) yield return new Token { Type = TokenType.Value, Value = builder.ToString() };
         }
     }
 }

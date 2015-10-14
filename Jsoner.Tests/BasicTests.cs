@@ -60,33 +60,61 @@
         }
 
         [TestMethod]
-        public void TesObjectWithArray()
+        public void TestObjectWithArray()
         {
             dynamic obj = Parser.ParseJson(@"{ ""foo"": ""bar"", ""bar"" : null}");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual("bar", obj.foo);
-            Assert.AreEqual(null, obj.bar);
+            Assert.IsNull(obj.bar);
         }   
 
         [TestMethod]
-        public void TesObjectWithTrueAndFalse()
+        public void TestObjectWithTrueAndFalse()
         {
             dynamic obj = Parser.ParseJson(@"{ ""foo"": true, ""bar"" : false}");
 
             Assert.IsNotNull(obj);
-            Assert.AreEqual(true, obj.foo);
-            Assert.AreEqual(false, obj.bar);
+            Assert.IsTrue(obj.foo);
+            Assert.IsFalse(obj.bar);
         }    
 
         [TestMethod]
-        public void TesObjectWithDouble()
+        public void TestObjectWithDouble()
         {
             dynamic obj = Parser.ParseJson(@"{ ""qux"": 1234.56}");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(1234.56, obj.qux);
-        }    
+        }
+
+        [TestMethod]
+        public void TestObjectWithJustAString()
+        {
+            dynamic obj = Parser.ParseJson(@"""hello world""");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual("hello world", obj);
+        }
+
+        [TestMethod]
+        public void TestObjectWithJustABool()
+        {
+            dynamic obj = Parser.ParseJson(@"true");
+
+            Assert.IsNotNull(obj);
+            Assert.IsTrue(obj);
+        }
+
+        [TestMethod]
+        public void TestObjectWithJustANumber()
+        {
+            dynamic obj = Parser.ParseJson(@"12.65");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(12.65, obj);
+        }
+
 
         [TestMethod]
         public void TestExampleJsonFile()
