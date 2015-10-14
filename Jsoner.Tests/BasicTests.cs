@@ -143,6 +143,15 @@
         }
 
         [TestMethod]
+        public void TestWithSlashRSlashN()
+        {
+            dynamic obj = Parser.ParseJson(@"{""foo"" : ""b\r\nar""}");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual("b\r\nar", obj.foo);
+        }
+
+        [TestMethod]
         public void TestExampleJsonFile()
         {
             var json = @"

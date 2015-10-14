@@ -114,12 +114,25 @@
             {
                 var c = json[i];
                 if (inString) {
-                    if (c == '"' && !escape)
+
+                    if (escape)
+                    {
+                        if (c == '"') builder.Append(c);
+                        if (c == 'r') builder.Append("\r");
+                        if (c == 'n') builder.Append("\n");
+                        if (c == 't') builder.Append("\t");
+                        if (c == 'b') builder.Append("\b");
+                        if (c == 'f') builder.Append("\f");
+                        if (c == 'f') builder.Append("\f");
+                        if (c == '/') builder.Append("/");
+                        escape = false;
+                        continue;
+                    }
+                    if (c == '"')
                     {
                         yield return new Token { Type = TokenType.String, Value = builder.ToString() };
                         builder.Clear();
                         inString = false;
-                        escape = false;
                         continue;
                     }
                     if (c == '\\')
