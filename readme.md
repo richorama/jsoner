@@ -12,6 +12,8 @@ If you have some json like this:
 }
 ```
 
+You can parse it like this:
+
 ```c#
 dynamic obj = Jsoner.Parser(jsonString);
 
