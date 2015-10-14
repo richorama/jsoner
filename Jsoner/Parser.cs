@@ -109,17 +109,25 @@
         {
             var builder = new StringBuilder();
             bool inString = false;
+            var escape = true;
             for (var i = 0; i < json.Length; i++)
             {
                 var c = json[i];
                 if (inString) {
-                    if (c == '"')
+                    if (c == '"' && !escape)
                     {
                         yield return new Token { Type = TokenType.String, Value = builder.ToString() };
                         builder.Clear();
                         inString = false;
+                        escape = false;
                         continue;
                     }
+                    if (c == '\\')
+                    {
+                        escape = true;
+                        continue;
+                    }
+                    escape = false;
                     builder.Append(c);
                     continue;
                 }

@@ -133,6 +133,14 @@
             Assert.AreEqual(0, obj.Count);
         }
 
+        [TestMethod]
+        public void TestWithDoubleQuote()
+        {
+            dynamic obj = Parser.ParseJson(@"{""foo"" : ""b\""ar""}");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(@"b""ar", obj.foo);
+        }
 
         [TestMethod]
         public void TestExampleJsonFile()
