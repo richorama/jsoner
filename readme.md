@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/richorama/jsoner.svg)](https://travis-ci.org/richorama/jsoner)
+
 # Jsoner
 
 A JSON parser written as a single C# file. It converts JSON strings to dynamic objects.
