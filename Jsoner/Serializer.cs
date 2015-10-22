@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Jsoner
+﻿namespace Jsoner
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static partial class Json
     {
         public static string Stringify(object value)
