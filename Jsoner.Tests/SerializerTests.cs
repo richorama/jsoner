@@ -107,8 +107,7 @@ namespace Jsoner.Tests
             Assert.IsTrue(json2.IndexOf("{\"glossary\":{") == 0);
 
             var object2 = Json.Parse(json2);
-
-
+            
         }
     }
 }

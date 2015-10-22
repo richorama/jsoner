@@ -31,9 +31,12 @@ var dictionary = Json.Parse("{ \"foo\" : 42 }") as IDictionary<string,object>;
 Likewise you can convert an object to a json string:
 
 ```c#
-Json.Serialize(new { hello : "world" });
-```
+string json = Json.Serialize(new { hello = "world" });
+Console.WriteLine(json); // {"hello":"world"}
+``` 
 
 ## License
 
 MIT
+
+
