@@ -23,7 +23,7 @@ Console.WriteLine(obj.hello); // "world"
 Alternatively you could cast the results to a `IDictionary<string,object>` or `IList<object>`:
 
 ```c#
-var list = Json.Parser("[1, 2, 3, 4]") as IList<object>;
+var list = Json.Parse("[1, 2, 3, 4]") as IList<object>;
 
 var dictionary = Json.Parse("{ \"foo\" : 42 }") as IDictionary<string,object>;
 ```
