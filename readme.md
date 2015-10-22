@@ -15,7 +15,7 @@ If you have some json like this:
 You can parse it like this:
 
 ```c#
-dynamic obj = Jsoner.Parser(jsonString);
+dynamic obj = Json.Parse(jsonString);
 
 Console.WriteLine(obj.hello); // "world"
 ```
@@ -23,9 +23,15 @@ Console.WriteLine(obj.hello); // "world"
 Alternatively you could cast the results to a `IDictionary<string,object>` or `IList<object>`:
 
 ```c#
-var list = Jsoner.Parser("[1, 2, 3, 4]") as IList<object>;
+var list = Json.Parser("[1, 2, 3, 4]") as IList<object>;
 
-var dictionary = Jsoner.Parser("{ \"foo\" : 42 }") as IDictionary<string,object>;
+var dictionary = Json.Parse("{ \"foo\" : 42 }") as IDictionary<string,object>;
+```
+
+Likewise you can convert an object to a json string:
+
+```c#
+Json.Serialize(new { hello : "world" });
 ```
 
 ## License

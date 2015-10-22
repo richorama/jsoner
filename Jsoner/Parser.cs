@@ -5,7 +5,7 @@
     using System.Dynamic;
     using System.Text;
 
-    public static class Parser
+    public static partial class Json
     {
         public enum TokenType
         {
@@ -25,9 +25,9 @@
             public string Value { get; set; }
         }
 
-        public static object ParseJson(string json)
+        public static object Parse(string json)
         {
-            var stack = new Queue<Token>(Parse(json));
+            var stack = new Queue<Token>(Tokenize(json));
             return GetTheNextThing(stack);
         }
 
@@ -105,7 +105,7 @@
         }
 
 
-        static IEnumerable<Token> Parse(string json)
+        static IEnumerable<Token> Tokenize(string json)
         {
             var builder = new StringBuilder();
             var inString = false;

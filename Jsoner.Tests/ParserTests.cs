@@ -4,14 +4,14 @@
     using System.Collections.Generic;
 
     [TestClass]
-    public class BasicTests
+    public class ParserTests
     {
    
 
         [TestMethod]
         public void TestObjectWithDictionary()
         {
-            IDictionary<string,object> obj = Parser.ParseJson(@"{ ""foo"" : ""bar"" }") as IDictionary<string, object>;
+            IDictionary<string,object> obj = Json.Parse(@"{ ""foo"" : ""bar"" }") as IDictionary<string, object>;
 
             Assert.IsNotNull(obj);
             Assert.AreEqual("bar", obj["foo"]);
@@ -21,7 +21,7 @@
         [TestMethod]
         public void TestObjectWithDynamic()
         {
-            dynamic obj = Parser.ParseJson(@"{ ""foo"" : ""bar"" }") ;
+            dynamic obj = Json.Parse(@"{ ""foo"" : ""bar"" }") ;
 
             Assert.IsNotNull(obj);
             Assert.AreEqual("bar", obj.foo);
@@ -31,7 +31,7 @@
         [TestMethod]
         public void TestNestedObject()
         {
-            dynamic obj = Parser.ParseJson(@"{ ""foo"" : { ""bar"" : ""baz""} }") ;
+            dynamic obj = Json.Parse(@"{ ""foo"" : { ""bar"" : ""baz""} }") ;
 
             Assert.IsNotNull(obj);
             Assert.AreEqual("baz", obj.foo.bar);
@@ -40,7 +40,7 @@
         [TestMethod]
         public void TestSimpleArray()
         {
-            var arr = Parser.ParseJson(@"[ ""foo"", ""bar"", ""baz""]") as List<object>;
+            var arr = Json.Parse(@"[ ""foo"", ""bar"", ""baz""]") as List<object>;
 
             Assert.IsNotNull(arr);
             Assert.AreEqual("foo", arr[0]);
@@ -51,7 +51,7 @@
         [TestMethod]
         public void TestArrayWithObject()
         {
-            dynamic arr = Parser.ParseJson(@"[ ""foo"", ""bar"", {""baz"":""qux""}]");
+            dynamic arr = Json.Parse(@"[ ""foo"", ""bar"", {""baz"":""qux""}]");
 
             Assert.IsNotNull(arr);
             Assert.AreEqual("foo", arr[0]);
@@ -62,7 +62,7 @@
         [TestMethod]
         public void TestObjectWithArray()
         {
-            dynamic obj = Parser.ParseJson(@"{ ""foo"": ""bar"", ""bar"" : null}");
+            dynamic obj = Json.Parse(@"{ ""foo"": ""bar"", ""bar"" : null}");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual("bar", obj.foo);
@@ -72,7 +72,7 @@
         [TestMethod]
         public void TestObjectWithTrueAndFalse()
         {
-            dynamic obj = Parser.ParseJson(@"{ ""foo"": true, ""bar"" : false}");
+            dynamic obj = Json.Parse(@"{ ""foo"": true, ""bar"" : false}");
 
             Assert.IsNotNull(obj);
             Assert.IsTrue(obj.foo);
@@ -82,7 +82,7 @@
         [TestMethod]
         public void TestObjectWithDouble()
         {
-            dynamic obj = Parser.ParseJson(@"{ ""qux"": 1234.56}");
+            dynamic obj = Json.Parse(@"{ ""qux"": 1234.56}");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(1234.56, obj.qux);
@@ -91,7 +91,7 @@
         [TestMethod]
         public void TestObjectWithJustAString()
         {
-            dynamic obj = Parser.ParseJson(@"""hello world""");
+            dynamic obj = Json.Parse(@"""hello world""");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual("hello world", obj);
@@ -100,7 +100,7 @@
         [TestMethod]
         public void TestObjectWithJustABool()
         {
-            dynamic obj = Parser.ParseJson(@"true");
+            dynamic obj = Json.Parse(@"true");
 
             Assert.IsNotNull(obj);
             Assert.IsTrue(obj);
@@ -109,7 +109,7 @@
         [TestMethod]
         public void TestObjectWithJustANumber()
         {
-            dynamic obj = Parser.ParseJson(@"12.65");
+            dynamic obj = Json.Parse(@"12.65");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(12.65, obj);
@@ -118,7 +118,7 @@
         [TestMethod]
         public void TestWithEmptyObject()
         {
-            dynamic obj = Parser.ParseJson(@"{}");
+            dynamic obj = Json.Parse(@"{}");
 
             Assert.IsNotNull(obj);
             Assert.IsNotNull(obj as IDictionary<string, object>);
@@ -127,7 +127,7 @@
         [TestMethod]
         public void TestWithEmptyArray()
         {
-            dynamic obj = Parser.ParseJson(@"[]");
+            dynamic obj = Json.Parse(@"[]");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(0, obj.Count);
@@ -136,7 +136,7 @@
         [TestMethod]
         public void TestWithDoubleQuote()
         {
-            dynamic obj = Parser.ParseJson(@"{""foo"" : ""b\""ar""}");
+            dynamic obj = Json.Parse(@"{""foo"" : ""b\""ar""}");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(@"b""ar", obj.foo);
@@ -145,7 +145,7 @@
         [TestMethod]
         public void TestWithSlashRSlashN()
         {
-            dynamic obj = Parser.ParseJson(@"{""foo"" : ""b\r\nar""}");
+            dynamic obj = Json.Parse(@"{""foo"" : ""b\r\nar""}");
 
             Assert.IsNotNull(obj);
             Assert.AreEqual("b\r\nar", obj.foo);
@@ -177,7 +177,7 @@
                     }
                 }
             }";
-            dynamic obj = Parser.ParseJson(json);
+            dynamic obj = Json.Parse(json);
             Assert.IsNotNull(obj);
             Assert.AreEqual("example glossary", obj.glossary.title);
 
