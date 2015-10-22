@@ -14,7 +14,7 @@ namespace Jsoner.Tests
         public void TestBasicObject()
         {
             dynamic obj = new { Foo = "Bar" };
-            var json = Json.Serialize(obj);
+            var json = Json.Stringify(obj);
             Assert.AreEqual("{\"Foo\":\"Bar\"}", json);
         }
 
@@ -22,7 +22,7 @@ namespace Jsoner.Tests
         public void TestBasicArray()
         {
             dynamic obj = new string[] { "foo", "bar", "baz"};
-            var json = Json.Serialize(obj);
+            var json = Json.Stringify(obj);
             Assert.AreEqual("[\"foo\",\"bar\",\"baz\"]", json);
         }
 
@@ -30,7 +30,7 @@ namespace Jsoner.Tests
         public void TestFloatArray()
         {
             var obj = new float[] { 1, 2, 3 };
-            var json = Json.Serialize(obj);
+            var json = Json.Stringify(obj);
             Assert.AreEqual("[1,2,3]", json);
         }
 
@@ -46,7 +46,7 @@ namespace Jsoner.Tests
                 arrayField = new object[] { true, false },
                 nullField = nullValue
             };
-            var json = Json.Serialize(obj);
+            var json = Json.Stringify(obj);
             Assert.AreEqual("{\"stringField\":\"STRINGVALUE\",\"numberField\":123.45,\"boolField\":true,\"arrayField\":[true,false],\"nullField\":null}", json);
         }
 
@@ -70,7 +70,7 @@ namespace Jsoner.Tests
         public void TestProperties()
         {
             var foo = new Foo();
-            var json = Json.Serialize(foo);
+            var json = Json.Stringify(foo);
             Assert.AreEqual("{\"Prop1\":\"1\"}", json);
         }
 
@@ -103,7 +103,7 @@ namespace Jsoner.Tests
             dynamic obj = Json.Parse(json);
             Assert.IsNotNull(obj);
             Assert.AreEqual("example glossary", obj.glossary.title);
-            var json2 = Json.Serialize(obj);
+            var json2 = Json.Stringify(obj);
             Assert.IsTrue(json2.IndexOf("{\"glossary\":{") == 0);
 
             var object2 = Json.Parse(json2);

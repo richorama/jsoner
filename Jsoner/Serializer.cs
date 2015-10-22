@@ -8,7 +8,7 @@ namespace Jsoner
 {
     public static partial class Json
     {
-        public static string Serialize(object value)
+        public static string Stringify(object value)
         {
             return SerializeThing(value);
         }
@@ -51,12 +51,12 @@ namespace Jsoner
             return "{" + string.Join(",", SerializeDictionaryProperties(value)) + "}";
         }
 
-        public static string SerializeArray(IEnumerable<object> values)
+        static string SerializeArray(IEnumerable<object> values)
         {
             return "[" + string.Join(",", values.Select(x => SerializeThing(x))) + "]";
         }
 
-        public static IEnumerable<object> StepThroughArray(Array values)
+        static IEnumerable<object> StepThroughArray(Array values)
         {
             for (var i = 0; i < values.Length; i++) yield return values.GetValue(i);
         }
